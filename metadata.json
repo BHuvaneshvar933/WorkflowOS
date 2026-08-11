@@ -1,0 +1,1064 @@
+{
+  "type": "bulk",
+  "args": [
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "organizations"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_track_table",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "source": "default"
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "organizations"
+        },
+        "name": "members",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "org_members"
+            },
+            "column": "org_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "organizations"
+        },
+        "name": "workflows",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "workflows"
+            },
+            "column": "org_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "name": "organization",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "org_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "name": "user",
+        "source": "default",
+        "using": {
+          "manual_configuration": {
+            "remote_table": {
+              "schema": "auth",
+              "name": "users"
+            },
+            "column_mapping": {
+              "user_id": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "name": "organization",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "org_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "name": "steps",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "workflow_steps"
+            },
+            "column": "workflow_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "name": "triggers",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "workflow_triggers"
+            },
+            "column": "workflow_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "name": "runs",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "workflow_runs"
+            },
+            "column": "workflow_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "name": "workflow",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "workflow_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "name": "workflow",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "workflow_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "name": "workflow",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "workflow_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_array_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "name": "step_runs",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": {
+            "table": {
+              "schema": "public",
+              "name": "step_runs"
+            },
+            "column": "workflow_run_id"
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "name": "workflow_run",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "workflow_run_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_object_relationship",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "name": "workflow_step",
+        "source": "default",
+        "using": {
+          "foreign_key_constraint_on": "workflow_step_id"
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "organizations"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "members": {
+              "user_id": {
+                "_eq": "X-Hasura-User-Id"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "organizations"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": [
+            "name"
+          ],
+          "filter": {
+            "members": {
+              "user_id": {
+                "_eq": "X-Hasura-User-Id"
+              },
+              "role": {
+                "_eq": "owner"
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_eq": "owner"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": [
+            "role"
+          ],
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_eq": "owner"
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "org_members"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_eq": "owner"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_in": [
+                    "owner",
+                    "editor"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": [
+            "name",
+            "description",
+            "status"
+          ],
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_in": [
+                    "owner",
+                    "editor"
+                  ]
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflows"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "organization": {
+              "members": {
+                "user_id": {
+                  "_eq": "X-Hasura-User-Id"
+                },
+                "role": {
+                  "_in": [
+                    "owner",
+                    "editor"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": [
+            "position",
+            "type",
+            "config"
+          ],
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_steps"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_triggers"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "workflow_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "workflow": {
+              "organization": {
+                "members": {
+                  "user_id": {
+                    "_eq": "X-Hasura-User-Id"
+                  },
+                  "role": {
+                    "_in": [
+                      "owner",
+                      "editor"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_select_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow_run": {
+              "workflow": {
+                "organization": {
+                  "members": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_insert_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "check": {
+            "workflow_run": {
+              "workflow": {
+                "organization": {
+                  "members": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    },
+                    "role": {
+                      "_in": [
+                        "owner",
+                        "editor"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "pg_create_update_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "columns": "*",
+          "filter": {
+            "workflow_run": {
+              "workflow": {
+                "organization": {
+                  "members": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    },
+                    "role": {
+                      "_in": [
+                        "owner",
+                        "editor"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "check": null
+        }
+      }
+    },
+    {
+      "type": "pg_create_delete_permission",
+      "args": {
+        "table": {
+          "schema": "public",
+          "name": "step_runs"
+        },
+        "role": "user",
+        "source": "default",
+        "permission": {
+          "filter": {
+            "workflow_run": {
+              "workflow": {
+                "organization": {
+                  "members": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    },
+                    "role": {
+                      "_in": [
+                        "owner",
+                        "editor"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
